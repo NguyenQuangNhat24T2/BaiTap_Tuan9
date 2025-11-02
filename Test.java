@@ -7,7 +7,7 @@ public class Test
     public static void main(String[] args)
     {
          // Gọi theo kiểu interface
-        IQuanLySach quanLy = new QuanLySachImpl(); //Tao doi tuong ql de su dung tu ban thiet ke QuanLySach
+        IQuanLySach quanLy = new QuanLySachImpl(); //Tao doi tuong quanLy de su dung tu ban thiet ke QuanLySachIplm
 
         SachGiaoTrinh sg1 = new SachGiaoTrinh("GT001", "I love you", "Nguyen Thai Ky Duyen", 2022, 10, 100000.0, "Lap trinh", "Dai hoc");
         SachTieuThuyet st1 = new SachTieuThuyet("TT001", "Nhung chang trai xau tinh", "Nguyen Nhat Anh", 2000, 50, 150000.0, "Fantasy", true);
@@ -21,7 +21,7 @@ public class Test
         
         System.out.println("=== Kiem tra chuc nang Giao dien (Interface) IKiemKe ===");
 
-        IKiemKe kiemKe_st1 = st1; /*be asked */
+        IKiemKe kiemKe_st1 = st1; 
 
         int soLuongCanKiemTra = 100;
         boolean duHang;
@@ -52,3 +52,4 @@ public class Test
 
     }
 }
+
