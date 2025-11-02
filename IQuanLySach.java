@@ -1,13 +1,10 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 import java.util.List;
-
-public interface IQuanLySach{
+public interface IQuanLySach 
+{
     void themSach(Sach s);
+    Sach timKiemTheoMa(String maSach);
     boolean xoaSach(String maSach);
-    boolean capNhatSach(String maSach, Sach sMoi);
-    Sach timSach(String maSach);
+    List<Sach> timKiemTheoTieuDe(String phanChu);
     void hienThiDanhSach();
-    List<Sach> timKiem(ITimKiem dk);
-    double tinhTongGiaTriKho();
 }
-/*“dịch vụ quản lý sách có thể làm được gì”, nhưng không nói cách làm thế nào. */

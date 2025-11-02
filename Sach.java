@@ -1,5 +1,5 @@
-package BaiTap_Tuan8;
-public abstract class Sach implements IKiemKe, IGiaBan
+package BaiTap_Tuan9;
+public abstract class Sach implements IGiaBan, IKiemKe 
 {
     private String maSach;
     private String tieuDe;
@@ -8,9 +8,9 @@ public abstract class Sach implements IKiemKe, IGiaBan
     private int soLuong;
     private double giaCoBan;
 
-    public Sach(){} /*ham khoi tao(constructor) khong doi  -> basic nhat  -> Sach s = new Sach() */
+    public Sach() {}
 
-    public Sach(String maSach, String tieuDe, String tacGia, int namXuatBan, int soLuong, double giaCoBan) /* constructor co doi -> use cho Main() */
+    public Sach(String maSach, String tieuDe, String tacGia, int namXuatBan, int soLuong, double giaCoBan) 
     {
         this.maSach = maSach;
         this.tieuDe = tieuDe;
@@ -20,69 +20,50 @@ public abstract class Sach implements IKiemKe, IGiaBan
         this.giaCoBan = giaCoBan;
     }
 
-    public String getMaSach()
-    {
-        return maSach;
-    }
-    public void setMaSach(String maSach)
-    {
-        this.maSach = maSach;
-    }
+    // getters / setters
+    public String getMaSach() { return maSach; }
+    public void setMaSach(String maSach) { this.maSach = maSach; }
 
-    public String getTieuDe()
-    {
-        return tieuDe;
-    }
-    public void setTieuDe(String tieuDe)
-    {
-        this.tieuDe = tieuDe;
-    }
+    public String getTieuDe() { return tieuDe; }
+    public void setTieuDe(String tieuDe) { this.tieuDe = tieuDe; }
 
-    public String getTacGia()
-    {
-        return tacGia;
-    }
-    public void setTacGia(String tacGia)
-    {
-        this.tacGia = tacGia;
-    }
+    public String getTacGia() { return tacGia; }
+    public void setTacGia(String tacGia) { this.tacGia = tacGia; }
 
-    public int getNamXuatBan()
-    {
-        return namXuatBan;
-    }
-    public void setNamXuatBan(int namXuatBan)
-    {
-        this.namXuatBan = namXuatBan;
-    }
+    public int getNamXuatBan() { return namXuatBan; }
+    public void setNamXuatBan(int namXuatBan) { this.namXuatBan = namXuatBan; }
 
-    public int getSoLuong()
-    {
-        return soLuong;
-    }
-    public void setSoLuong(int soLuong)
-    {
-        this.soLuong = soLuong;
-    }
+    public int getSoLuong() { return soLuong; }
+    public void setSoLuong(int soLuong) { this.soLuong = soLuong; }
 
-    public double getGiaCoBan()
+    public double getGiaCoBan() { return giaCoBan; }
+    public void setGiaCoBan(double giaCoBan) { this.giaCoBan = giaCoBan; }
+
+    // từ interface IGiaBan
+    @Override
+    public abstract double tinhGiaBan();
+
+    // từ interface IKiemKe: một phương thức mặc định nhưng lớp con có thể override
+    @Override
+    public boolean kiemTraTonKho(int soLuongToiThieu) 
     {
-        return giaCoBan;
-    }
-    public void setGiaCoBan(double giaCoban)
-    {
-        this.giaCoBan = giaCoBan;
+        return this.soLuong >= soLuongToiThieu;
     }
 
     @Override
-    public String toString()
+    public void capNhatViTri(String viTriMoi) 
     {
-        return 
-        "Ma sach: "+maSach+"\n"+
-        "Tieu de: "+tieuDe+"\n"+
-        "Tac gia: "+tacGia+"\n"+
-        "Nam xuat ban: "+namXuatBan+"\n"+
-        "So luong: "+soLuong+"\n"+
-        "Gia co ban: "+giaCoBan+"\n";
+        System.out.println("Đã chuyển sách \"" + this.tieuDe + "\" đến: " + viTriMoi);
+    }
+
+    @Override
+    public String toString() 
+    {
+        return "Ma sach: " + maSach + "\n" +
+               "Tieu de: " + tieuDe + "\n" +
+               "Tac gia: " + tacGia + "\n" +
+               "Nam xb: " + namXuatBan + "\n" +
+               "So luong: " + soLuong + "\n" +
+               "Gia co ban: " + giaCoBan;
     }
 }

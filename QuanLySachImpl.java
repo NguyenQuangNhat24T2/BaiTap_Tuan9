@@ -1,92 +1,78 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class QuanLySachImpl implements IQuanLySach
+public class QuanLySachImpl implements IQuanLySach 
 {
-    private List<Sach> danhSach = new ArrayList<>(); /*(): "chạy" hàm khởi tạo của ArrayList để tạo ra một cái danh sách rỗng (chưa có phần tử nào). */
+    private final List<Sach> danhSach = new ArrayList<>();
 
     @Override
     public void themSach(Sach s) 
     {
+        if (s == null) return;
         danhSach.add(s);
+        System.out.println("Đã thêm: " + s.getMaSach() + " - " + s.getTieuDe());
     }
 
-    // Xoá sách theo mã
+    @Override
+    public Sach timKiemTheoMa(String maSach) 
+    {
+        if (maSach == null) return null;
+        for (Sach s : danhSach) 
+        {
+            if (s.getMaSach().equalsIgnoreCase(maSach.trim())) return s;
+        }
+        return null;
+    }
+
     @Override
     public boolean xoaSach(String maSach) 
     {
-        for (Sach s : danhSach) 
-            if (s.getMaSach().equals(maSach)) 
-            {
-                danhSach.remove(s);
-                return true;
-            }
-        return false;
-    }
-
-    // Cập nhật sách theo mã
-    @Override
-    public boolean capNhatSach(String maSach, Sach sMoi) 
-    {
-        for (int i = 0; i < danhSach.size(); i++) 
-            if (danhSach.get(i).getMaSach().equals(maSach)) 
-            {
-                danhSach.set(i, sMoi);
-                return true;
-            }
-        return false;
-    }
-
-    // Tìm kiếm sách theo mã
-    @Override
-    public Sach timSach(String maSach) 
-    {
-        for (Sach s : danhSach) 
-            if (s.getMaSach().equals(maSach)) 
-            {
-                return s;
-            }
-        return null;
-    }
-    @Override
-    public void hienThiDanhSach()
-    {
-        if(danhSach.isEmpty())
+        Sach s = timKiemTheoMa(maSach);
+        if (s != null) 
         {
-            System.out.println("Thu vien chua co sach nao.");
+            danhSach.remove(s);
+            System.out.println("Đã xóa sách mã: " + maSach);
+            return true;
+        } else 
+        {
+            System.out.println("Không tìm thấy sách mã: " + maSach);
+            return false;
+        }
+    }
+
+    @Override
+    public List<Sach> timKiemTheoTieuDe(String phanChu) 
+    {
+        if (phanChu == null) return new ArrayList<>();
+        String key = phanChu.toLowerCase();
+        return danhSach.stream()
+                .filter(s -> s.getTieuDe().toLowerCase().contains(key))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void hienThiDanhSach() 
+    {
+        if (danhSach.isEmpty()) 
+        {
+            System.out.println("Danh sách rỗng.");
             return;
         }
-        for(Sach s: danhSach)
+        System.out.println("=== DANH SÁCH SÁCH ===");
+        for (Sach s : danhSach) 
         {
-            System.out.println(s.toString());
-         /*Với mỗi đối tượng Sach (mà chúng ta tạm đặt tên là s) nằm ở bên trong danhSach, hãy thực hiện... */
-
-         System.out.println("Gia ban uoc tinh: "+s.tinhGiaBan()+" VND");
-        System.out.println("--------------------------------------------");
-        
+            System.out.println(s);
+            System.out.println("-------------------------");
         }
     }
 
-    // ===== Chức năng mở rộng =====
-
-    @Override
-    public List<Sach> timKiem(ITimKiem dk) {
-        List<Sach> ketQua = new ArrayList<>();
-        for (Sach s : danhSach) {
-            if (dk.thoaMan(s)) {
-                ketQua.add(s);
-            }
-        }
-        return ketQua;
-    }
-
-    @Override
-    public double tinhTongGiaTriKho() {
+    // Phần mở rộng: thống kê tổng giá bán (tính theo tinhGiaBan mỗi sách)
+    public double tongGiaBanTatCa() 
+    {
         double tong = 0;
-        for (Sach s : danhSach) {
-            tong += s.tinhGiaBan() * s.getSoLuong();
-        }
+        for (Sach s : danhSach) tong += s.tinhGiaBan();
         return tong;
     }
 }

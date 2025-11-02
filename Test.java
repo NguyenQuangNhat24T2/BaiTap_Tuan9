@@ -1,54 +1,94 @@
-package BaiTap_Tuan8;
-
+package BaiTap_Tuan9;
 import java.util.List;
+import java.util.Scanner;
 
-public class Test
+public class Test 
 {
-    public static void main(String[] args)
+    public static void main(String[] args) 
     {
-         // Gọi theo kiểu interface
-        IQuanLySach quanLy = new QuanLySachImpl(); //Tao doi tuong ql de su dung tu ban thiet ke QuanLySach
+        QuanLySachImpl ql = new QuanLySachImpl();
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        // Them mot vai sach mau
+        ql.themSach(new SachGiaoTrinh("GT001", "Lap Trinh Java", "Nguyen Van A", 2022, 10, 50000, "Lap trinh", "Dai hoc"));
+        ql.themSach(new SachTieuThuyet("TT001", "Harry Potter", "J.K. Rowling", 2000, 5, 80000, "Fantasy", true));
+        ql.themSach(new SachThamKhao("TK001", "Vat Ly tham khao", "Nguyen B", 2019, 3, 60000, 10.0));
 
-        SachGiaoTrinh sg1 = new SachGiaoTrinh("GT001", "I love you", "Nguyen Thai Ky Duyen", 2022, 10, 100000.0, "Lap trinh", "Dai hoc");
-        SachTieuThuyet st1 = new SachTieuThuyet("TT001", "Nhung chang trai xau tinh", "Nguyen Nhat Anh", 2000, 50, 150000.0, "Fantasy", true);
+        do 
+        {
+            System.out.println("\n===== MENU QUAN LY SACH (Tuan 9) =====");
+            System.out.println("1. Hien thi danh sach");
+            System.out.println("2. Tim sach theo ma");
+            System.out.println("3. Tim sach theo tieu de (chua)");
+            System.out.println("4. Xoa sach theo ma");
+            System.out.println("5. Kiem tra ton kho (vi du >= so luong)");
+            System.out.println("6. Cap nhat vi tri sach (capNhatViTri)");
+            System.out.println("7. Tong gia ban uoc tinh cua tat ca sach");
+            System.out.println("0. Thoat");
+            System.out.print("Chon: ");
+            choice = Integer.parseInt(sc.nextLine());
 
-        quanLy.themSach(sg1);
-        quanLy.themSach(st1);
-
-        System.out.println("========Danh sach sau khi them========");
-        
-        quanLy.hienThiDanhSach();
-        
-        System.out.println("=== Kiem tra chuc nang Giao dien (Interface) IKiemKe ===");
-
-        IKiemKe kiemKe_st1 = st1; /*be asked */
-
-        int soLuongCanKiemTra = 100;
-        boolean duHang;
-        duHang = kiemKe_st1.kiemTraTonKho(soLuongCanKiemTra);
-        System.out.println("Kiem tra ton kho (>= " + soLuongCanKiemTra + "): " + (duHang ? "Du hang" : "Thieu hang"));
-
-        soLuongCanKiemTra = 30;
-        duHang = kiemKe_st1.kiemTraTonKho(soLuongCanKiemTra);
-        System.out.println("Kiem tra ton kho (>= " + soLuongCanKiemTra + "): " + (duHang ? "Du hang" : "Thieu hang"));
-
-        kiemKe_st1.capNhatViTri("Kho A1-Kệ 5");
-
-        System.out.println("--- Test voi Sach Giao Trinh ---");
-        IKiemKe kiemKe_sg1 = sg1;
-        kiemKe_sg1.capNhatViTri("Khu vuc Sach Lap Trinh");
-/* thêm của chức năng tìm kiếm theo tên + tác giả */
-        System.out.println("\n=== Tim sach theo ten co chu 'love' ===");
-        for (Sach s : quanLy.timKiem(new TimTheoTen("love"))) {
-            System.out.println(s);
-        }
-
-        System.out.println("\n=== Tim sach theo tac gia 'Nguyen Nhat Anh' ===");
-        for (Sach s : quanLy.timKiem(new TimTheoTacGia("Nguyen Nhat Anh"))) {
-            System.out.println(s);
-        }
-
-        System.out.println("\nTong gia tri kho sach: " + quanLy.tinhTongGiaTriKho() + " VND");
-
+            switch (choice) 
+            {
+                case 1 -> ql.hienThiDanhSach();
+                case 2 -> 
+                {
+                    System.out.print("Nhap ma: ");
+                    String ma = sc.nextLine();
+                    Sach s = ql.timKiemTheoMa(ma);
+                    if (s != null) System.out.println(s);
+                    else System.out.println("Khong tim thay.");
+                }
+                case 3 -> 
+                {
+                    System.out.print("Nhap chuoi tim trong tieu de: ");
+                    String key = sc.nextLine();
+                    List<Sach> ketQua = ql.timKiemTheoTieuDe(key);
+                    if (ketQua.isEmpty()) System.out.println("Khong tim thay.");
+                    else 
+                    {
+                        for (Sach x : ketQua) System.out.println(x + "\n---");
+                    }
+                }
+                case 4 -> 
+                {
+                    System.out.print("Nhap ma can xoa: ");
+                    String ma = sc.nextLine();
+                    ql.xoaSach(ma);
+                }
+                case 5 -> 
+                {
+                    System.out.print("Nhap ma va so luong toi thieu (cach nhau boi dau phay). Vi du: GT001,5\n> ");
+                    String line = sc.nextLine();
+                    String[] parts = line.split(",");
+                    if (parts.length == 2) 
+                    {
+                        String ma = parts[0].trim();
+                        int so = Integer.parseInt(parts[1].trim());
+                        Sach s = ql.timKiemTheoMa(ma);
+                        if (s != null) 
+                        {
+                            System.out.println("Ton kho >= " + so + " ? " + (s.kiemTraTonKho(so) ? "Du" : "Khong du"));
+                        } else System.out.println("Khong tim thay ma.");
+                    } else System.out.println("Nhap sai dinh dang.");
+                }
+                case 6 -> 
+                {
+                    System.out.print("Nhap ma sach: ");
+                    String ma = sc.nextLine();
+                    Sach s = ql.timKiemTheoMa(ma);
+                    if (s != null) 
+                    {
+                        System.out.print("Nhap vi tri moi: ");
+                        String viTri = sc.nextLine();
+                        s.capNhatViTri(viTri);
+                    } else System.out.println("Khong tim thay ma.");
+                }
+                case 7 -> System.out.println("Tong gia ban uoc tinh: " + ql.tongGiaBanTatCa());
+                case 0 -> System.out.println("Thoat chuong trinh.");
+                default -> System.out.println("Chon khong hop le.");
+            }
+        } while (choice != 0);
+        sc.close();
     }
 }
