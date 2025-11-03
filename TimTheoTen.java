@@ -1,4 +1,4 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 
 public class TimTheoTen implements ITimKiem {
     private String tuKhoa;
@@ -12,4 +12,5 @@ public class TimTheoTen implements ITimKiem {
         return s.getTieuDe().toLowerCase().contains(tuKhoa);
     }
 }
+
 
