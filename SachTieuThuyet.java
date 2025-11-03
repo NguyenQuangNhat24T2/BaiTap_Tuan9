@@ -1,4 +1,4 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 public class SachTieuThuyet extends Sach 
 {
     private String theLoai;
@@ -62,3 +62,4 @@ public class SachTieuThuyet extends Sach
         System.out.println("Da chuyen sach [ "+this.getTieuDe()+"] den khu vuc "+ viTriMoi);
     }
 }
+
