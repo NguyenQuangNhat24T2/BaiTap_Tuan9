@@ -1,4 +1,4 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 
 public class TimTheoTacGia implements ITimKiem {
     private String tacGia;
@@ -12,4 +12,5 @@ public class TimTheoTacGia implements ITimKiem {
         return s.getTacGia().toLowerCase().contains(tacGia);
     }
 }
+
 
