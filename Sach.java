@@ -1,4 +1,4 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 public abstract class Sach implements IKiemKe, IGiaBan
 {
     private String maSach;
@@ -85,4 +85,5 @@ public abstract class Sach implements IKiemKe, IGiaBan
         "So luong: "+soLuong+"\n"+
         "Gia co ban: "+giaCoBan+"\n";
     }
+
 }
