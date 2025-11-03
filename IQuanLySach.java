@@ -1,4 +1,4 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 import java.util.List;
 
 public interface IQuanLySach{
@@ -10,4 +10,5 @@ public interface IQuanLySach{
     List<Sach> timKiem(ITimKiem dk);
     double tinhTongGiaTriKho();
 }
+
 /*“dịch vụ quản lý sách có thể làm được gì”, nhưng không nói cách làm thế nào. */
