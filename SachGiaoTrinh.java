@@ -1,4 +1,4 @@
-package BaiTap_Tuan8;
+package BaiTap_Tuan9;
 public class SachGiaoTrinh extends Sach 
 {
     private String monHoc;
@@ -61,3 +61,4 @@ public class SachGiaoTrinh extends Sach
         System.out.println("Da chuyen sach [" + this.getTieuDe()+"] den khu vuc: " + viTriMoi);
     }
 }
+
