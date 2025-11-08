@@ -8,9 +8,10 @@ public class TimTheoTacGia implements ITimKiem {
     }
 
     @Override
-    public boolean thoaDieuKien(Sach s) {
+    public boolean thoaMan(Sach s) {
         return s.getTacGia().toLowerCase().contains(tacGia);
     }
 }
+
 
 
